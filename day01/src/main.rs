@@ -1,9 +1,10 @@
+#[macro_use] 
+extern crate itertools;
+
 fn silver(input: Vec<i64>) -> i64 {
-	for x in input.clone() {
-		for y in input.clone() {
-			if x + y == 2020 {
-				return x * y;
-			}
+	for (x, y) in iproduct!(input.clone(), input) {
+		if x + y == 2020 {
+			return x * y;
 		}
 	}
 
@@ -11,16 +12,12 @@ fn silver(input: Vec<i64>) -> i64 {
 }
 
 fn gold(input: Vec<i64>) -> i64 {
-	for x in input.clone() {
-		for y in input.clone() {
-			for z in input.clone() {
-				if x + y + z == 2020 {
-					return x * y * z;
-				}
-			}
+	for (x, y, z) in iproduct!(input.clone(), input.clone(), input) {
+		if x + y + z == 2020 {
+			return x * y * z;
 		}
 	}
-
+	
 	0
 }
 
@@ -32,5 +29,5 @@ fn main() {
 		.collect();
 
 	println!("Silver: {}", silver(input.clone()));
-	println!("Gold: {}", gold(input.clone()));
+	println!("Gold: {}", gold(input));
 }
