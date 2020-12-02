@@ -10,8 +10,20 @@ build:day-01:
     - cd day01
     - cargo build --release
 
+build:day-02:
+  stage: build
+  script:
+    - cd day02
+    - cargo build --release
+
 run:day-01:
   stage: test
   script:
     - cd day01
+    - cargo run --release
+
+run:day-02:
+  stage: test
+  script:
+    - cd day02
     - cargo run --release
