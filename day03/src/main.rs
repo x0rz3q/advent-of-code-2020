@@ -21,7 +21,7 @@ impl PartialEq for Coordinate {
 	}
 }
 
-fn walk(map: HashMap<Coordinate, char>, height: i64, width: i64, step_x: i64, step_y: i64) -> i64 {
+fn walk(map: &HashMap<Coordinate, char>, height: i64, width: i64, step_x: i64, step_y: i64) -> i64 {
 	let mut y = 0;
 	let mut x = 0;
 	let mut trees = 0;
@@ -41,15 +41,15 @@ fn walk(map: HashMap<Coordinate, char>, height: i64, width: i64, step_x: i64, st
 	trees
 }
 
-fn silver(map: HashMap<Coordinate, char>, height: i64, width: i64) -> i64 {
+fn silver(map: &HashMap<Coordinate, char>, height: i64, width: i64) -> i64 {
 	walk(map, height, width, 3, 1)
 }
 
-fn gold(map: HashMap<Coordinate, char>, height: i64, width: i64, steps: Vec<(i64, i64)>) -> i64 {
+fn gold(map: &HashMap<Coordinate, char>, height: i64, width: i64, steps: Vec<(i64, i64)>) -> i64 {
 	let mut trees = 1;
 
 	for step in steps {
-		trees = trees * walk(map.clone(), height, width, step.0, step.1);
+		trees = trees * walk(map, height, width, step.0, step.1);
 	}
 
 	trees
@@ -82,8 +82,8 @@ fn main() {
 		y += 1;
 	}
 
-	println!("Silver: {}", silver(map.clone(), height, width));
+	println!("Silver: {}", silver(&map, height, width));
 
 	let steps = vec![(1, 1), (3, 1), (5, 1), (7, 1), (1, 2)];
-	println!("Gold: {}", gold(map, height, width, steps));
+	println!("Gold: {}", gold(&map, height, width, steps));
 }
