@@ -10,7 +10,6 @@ impl Coordinate {
 	fn new(x: i64, y: i64) -> Coordinate {
 		Coordinate{x, y}
 	}
-
 }
 
 impl Eq for Coordinate {}
@@ -48,8 +47,8 @@ fn silver(map: &HashMap<Coordinate, char>, height: i64, width: i64) -> i64 {
 fn gold(map: &HashMap<Coordinate, char>, height: i64, width: i64, steps: Vec<(i64, i64)>) -> i64 {
 	let mut trees = 1;
 
-	for step in steps {
-		trees = trees * walk(map, height, width, step.0, step.1);
+	for (x, y) in steps {
+		trees = trees * walk(map, height, width, x, y);
 	}
 
 	trees
