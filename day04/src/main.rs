@@ -1,11 +1,16 @@
-use std::collections::HashMap;
-use regex::Regex;
 use colored::*;
+use itertools::Itertools;
+use regex::Regex;
+use std::collections::HashMap;
+use std::time::Instant;
 
 fn silver(input: &Vec<String>) -> usize {
     let constraints = vec!["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"];
 
-    input.iter().filter(|x| constraints.iter().all(|y| x.matches(y).count() == 1)).count()
+    input
+        .iter()
+        .filter(|x| constraints.iter().all(|y| x.matches(y).count() == 1))
+        .count()
 }
 
 fn gold(input: &Vec<String>) -> usize {
@@ -13,18 +18,19 @@ fn gold(input: &Vec<String>) -> usize {
     let eyes = vec!["amb", "blu", "brn", "gry", "grn", "hzl", "oth"];
     let hcl_re = Regex::new(r"#[0-9a-f]{6}").unwrap();
 
-    let input: Vec<String> = input.iter().filter(|x| constraints.iter().all(|y| x.matches(y).count() == 1)).map(|x| x.to_string()).collect();
+    let input: Vec<String> = input
+        .iter()
+        .filter(|x| constraints.iter().all(|y| x.matches(y).count() == 1))
+        .map(|x| x.to_string())
+        .collect();
 
     let mut valid = 0;
-
     for entry in input {
-        let clean = entry.replace("\n", " ");
-        let parts: Vec<Vec<String>> = clean.trim().split(' ').map(|x| x.split(':').map(|x| x.to_string()).collect()).collect();
-        let mut map: HashMap<String, String> = HashMap::new();
-
-        for part in parts {
-            map.insert(part.get(0).unwrap().to_string(), part.get(1).unwrap().to_string());
-        }
+        let map = entry
+            .split_whitespace()
+            .flat_map(|p| p.split(':'))
+            .tuples()
+            .collect::<HashMap<_, _>>();
 
         let byr = map.get("byr").unwrap().parse::<u64>();
         let iyr = map.get("iyr").unwrap().parse::<u64>();
@@ -39,7 +45,10 @@ fn gold(input: &Vec<String>) -> usize {
         let iyr = iyr.unwrap();
         let eyr = eyr.unwrap();
 
-        if !((1920 <= byr && byr <= 2002) && (2010 <= iyr && iyr <= 2020) && (2020 <= eyr && eyr <= 2030)) {
+        if !((1920 <= byr && byr <= 2002)
+            && (2010 <= iyr && iyr <= 2020)
+            && (2020 <= eyr && eyr <= 2030))
+        {
             println!("{}", "Invalid byr/iyr/eyr value".red());
             continue;
         }
@@ -61,7 +70,10 @@ fn gold(input: &Vec<String>) -> usize {
 
         let hgt = hgt.unwrap();
         if !((is_cm && 150 <= hgt && hgt <= 193) || (!is_cm && 59 <= hgt && hgt <= 76)) {
-            println!("{}", format!("Invalid hgt value {} with is_cm {}", hgt, is_cm).red());
+            println!(
+                "{}",
+                format!("Invalid hgt value {} with is_cm {}", hgt, is_cm).red()
+            );
             continue;
         }
 
@@ -90,12 +102,16 @@ fn gold(input: &Vec<String>) -> usize {
 }
 
 fn main() {
-	let input: Vec<String> = include_str!("input")
-		.trim()
-		.split("\n\n")
+    let now = Instant::now();
+
+    let input: Vec<String> = include_str!("input")
+        .trim()
+        .split("\n\n")
         .map(|x| x.to_string())
-		.collect();
+        .collect();
 
     println!("{}", format!("Silver: {}", silver(&input)).green());
     println!("{}", format!("Gold: {}", gold(&input)).green());
+
+    println!("Time: {}ms", now.elapsed().as_millis());
 }
