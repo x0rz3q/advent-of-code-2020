@@ -56,7 +56,7 @@ fn gold(input: &Vec<String>) -> usize {
         }
 
         if valid {
-            println!("{}", entry);
+            println!("Valid passport: {}", format!("{}", map.get("pid").unwrap()).yellow());
             count += 1;
         }
     }
