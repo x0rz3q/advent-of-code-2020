@@ -38,30 +38,17 @@ fn gold(input: &Vec<String>) -> usize {
     comparitor.insert("pid", Regex::new(r"^[0-9]{9}$").unwrap());
     comparitor.insert("cid", Regex::new(r"").unwrap());
 
-    let mut count = 0;
-    for entry in input {
-        let map = entry
-            .split_whitespace()
-            .flat_map(|p| p.split(':'))
-            .tuples()
-            .collect::<HashMap<_, _>>();
-
-        let mut valid = true;
-        for (key, value) in map.iter() {
-            valid = valid && comparitor.get(key).unwrap().is_match(value);
-
-            if !valid {
-                break;
-            }
-        }
-
-        if valid {
-            println!("Valid passport: {}", format!("{}", map.get("pid").unwrap()).yellow());
-            count += 1;
-        }
-    }
-
-    count
+    input
+        .iter()
+        .map(|entry| {
+            entry
+                .split_whitespace()
+                .flat_map(|p| p.split(':'))
+                .tuples()
+                .all(|(key, value)| comparitor.get(key).unwrap().is_match(value))
+        })
+        .filter(|x| *x)
+        .count()
 }
 
 fn main() {
