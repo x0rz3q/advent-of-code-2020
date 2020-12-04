@@ -1,5 +1,9 @@
 use std::collections::HashMap;
 use std::collections::HashSet;
+use itertools::Itertools;
+use std::time::Instant;
+use regex::Regex;
+use colored::*;
 use std::cmp;
 
 #[derive(Hash, Clone, Debug, Copy)]
@@ -31,8 +35,12 @@ fn gold(input: Vec<TYPE>) {
 }
 
 fn main() {
+	let now = Instant::now();
+
 	let input: Vec<TYPE> = include_str!("input")
 		.trim()
 		.split('\n')
 		.collect();
+
+	println!("Time: {}ms", now.elapsed().as_millis());
 }
