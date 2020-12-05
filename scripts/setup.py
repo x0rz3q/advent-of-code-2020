@@ -5,7 +5,7 @@ if __name__ == '__main__':
     # Create the repository
 
     date = datetime.datetime.now()
-    day = str(date.day + 1)
+    day = str(date.day)
 
     if len(day) == 1:
         day = '0' + day
