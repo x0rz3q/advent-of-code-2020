@@ -33,7 +33,7 @@ fn main() {
 		.collect();
 
 	println!("Silver: {}", silver(&input));
-	println!("Silver: {}", gold(&input));
+	println!("Gold: {}", gold(&input));
 
 	println!("Time: {}ms", now.elapsed().as_millis());
 }
