@@ -87,3 +87,15 @@ run:day-07:
   script:
     - cd day07
     - cargo run --release
+
+build:day-08:
+  stage: build
+  script:
+    - cd day08
+    - cargo build --release
+
+run:day-08:
+  stage: test
+  script:
+    - cd day08
+    - cargo run --release
