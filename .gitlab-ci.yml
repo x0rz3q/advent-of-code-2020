@@ -99,3 +99,15 @@ run:day-08:
   script:
     - cd day08
     - cargo run --release
+
+build:day-09:
+  stage: build
+  script:
+    - cd day09
+    - cargo build --release
+
+run:day-09:
+  stage: test
+  script:
+    - cd day09
+    - cargo run --release
