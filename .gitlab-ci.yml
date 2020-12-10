@@ -111,3 +111,15 @@ run:day-09:
   script:
     - cd day09
     - cargo run --release
+
+build:day-10:
+  stage: build
+  script:
+    - cd day10
+    - cargo build --release
+
+run:day-10:
+  stage: test
+  script:
+    - cd day10
+    - cargo run --release
