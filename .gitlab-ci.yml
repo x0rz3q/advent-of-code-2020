@@ -123,3 +123,63 @@ run:day-10:
   script:
     - cd day10
     - cargo run --release
+
+build:day-11:
+  stage: build
+  script:
+    - cd day11
+    - cargo build --release
+
+run:day-11:
+  stage: test
+  script:
+    - cd day11
+    - cargo run --release
+
+build:day-12:
+  stage: build
+  script:
+    - cd day12
+    - cargo build --release
+
+run:day-12:
+  stage: test
+  script:
+    - cd day12
+    - cargo run --release
+
+build:day-13:
+  stage: build
+  script:
+    - cd day13
+    - cargo build --release
+
+run:day-13:
+  stage: test
+  script:
+    - cd day13
+    - cargo run --release
+
+build:day-14:
+  stage: build
+  script:
+    - cd day14
+    - cargo build --release
+
+run:day-14:
+  stage: test
+  script:
+    - cd day14
+    - cargo run --release
+
+build:day-15:
+  stage: build
+  script:
+    - cd day15
+    - cargo build --release
+
+run:day-15:
+  stage: test
+  script:
+    - cd day15
+    - cargo run --release
