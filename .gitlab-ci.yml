@@ -195,3 +195,15 @@ run:day-16:
   script:
     - cd day16
     - cargo run --release
+
+build:day-17:
+  stage: build
+  script:
+    - cd day17
+    - cargo build --release
+
+run:day-17:
+  stage: test
+  script:
+    - cd day17
+    - cargo run --release
