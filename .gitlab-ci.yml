@@ -237,7 +237,7 @@ build:day-20:
   stage: build
   script:
     - cd day20
-    - javac src/* -d out
+    - javac src/*.java -d out
 
 run:day-20:
   image: "openjdk:7"
