@@ -231,3 +231,20 @@ run:day-19:
   script:
     - cd day19
     - cargo run --release
+
+build:day-20:
+  image: "openjdk:7"
+  stage: build
+  script:
+    - cd day20
+    - javac src/* -d out
+
+run:day-20:
+  image: "openjdk:7"
+  stage: test
+  script:
+    - cd day20
+    - javac src/* -d out
+    - cp src/input out
+    - cd out
+    - java Main
