@@ -286,6 +286,5 @@ run:day-23:
   script:
     - cd day23
     - javac src/*.java -d out
-    - cp src/input out
     - cd out
     - java Main
