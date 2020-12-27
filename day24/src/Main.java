@@ -9,8 +9,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Main {
-    public long silver() throws FileNotFoundException {
-        File file = new File("/Users/x0rz3q/Code/Self/advent-of-code-2020/day24/src/input");
+    public HashMap<Coordinate, Boolean> run() throws FileNotFoundException {
+	    File file = new File("input");
         Scanner scanner = new Scanner(file);
 
         Pattern pattern = Pattern.compile("(se|sw|nw|ne|e|w)");
@@ -37,36 +37,15 @@ public class Main {
             archive.computeIfPresent(current, (key, val) -> !val);
         }
 
-        return archive.entrySet().stream().filter(Map.Entry::getValue).count();
+        return archive;
+    }
+
+    public long silver() throws FileNotFoundException {
+        return this.run().entrySet().stream().filter(Map.Entry::getValue).count();
     }
 
     public long gold() throws FileNotFoundException {
-        File file = new File("/Users/x0rz3q/Code/Self/advent-of-code-2020/day24/src/input");
-        Scanner scanner = new Scanner(file);
-
-        Pattern pattern = Pattern.compile("(se|sw|nw|ne|e|w)");
-
-        Coordinate center = new Coordinate(0, 0);
-        HashMap<Coordinate, Boolean> archive = new HashMap<>();
-
-        while (scanner.hasNextLine()) {
-            Coordinate current = center;
-
-            String line = scanner.nextLine();
-            if (line.isEmpty()) continue;
-
-            Matcher matcher = pattern.matcher(line);
-
-            while(matcher.find()) {
-                Coordinate coordinate = current.move(matcher.group());
-                archive.putIfAbsent(coordinate, false);
-
-                current = coordinate;
-            }
-
-            archive.computeIfPresent(current, (key, val) -> !val);
-        }
-
+        HashMap<Coordinate, Boolean> archive = run();
         List<Coordinate> toAdd = new ArrayList<>();
 
         for (int i = 0; i < 100; i++) {
