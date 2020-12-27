@@ -288,3 +288,36 @@ run:day-23:
     - javac src/*.java -d out
     - cd out
     - java Main
+
+build:day-24:
+  image: "openjdk:13"
+  stage: build
+  script:
+    - cd day24
+    - javac src/*.java -d out
+
+run:day-24:
+  image: "openjdk:13"
+  stage: test
+  script:
+    - cd day24
+    - javac src/*.java -d out
+    - cp src/input out
+    - cd out
+    - java Main
+
+build:day-25:
+  image: "openjdk:13"
+  stage: build
+  script:
+    - cd day25
+    - javac src/*.java -d out
+
+run:day-25:
+  image: "openjdk:13"
+  stage: test
+  script:
+    - cd day25
+    - javac src/*.java -d out
+    - cd out
+    - java Main
